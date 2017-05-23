@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Timer () {
+      this.s1 = 0
+      this.s2 = 0
+      setInterval(() => this.s1++, 1000)
+      setInterval(function () {
+        this.s2++
+      },1000)
+    }
+    var timer = new Timer()
+    setTimeout(() => console.log(timer.s1), 3100)
+    setTimeout(() => console.log(timer.s2),3100)
+    var arr = [1,2,3,4,5,6]
+    var arr1 = arr.slice(0)
+    console.log(arr1)
+    var arr2 = arr.splice(0)
+    console.log(arr2)
+    console.log(arr)
+  </script>
+</body>
+</html>
