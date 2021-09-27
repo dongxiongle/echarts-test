@@ -1,32 +1,40 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require("path");
 
 module.exports = {
-  entry: './src/clock.ts',
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].[hash].js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "js/[name].[fullhash:8].js",
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'ts-loader'
-        }
-      }
-    ]
+          loader: "babel-loader",
+        },
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        type: "asset",
+        generator: {
+          filename: "images/[name].[hash:8][ext][query]",
+        },
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024,
+          },
+        },
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
-    })
+      template: "./index.html",
+    }),
   ],
-  devServer: {
-    hot: true,
-    port: 8082
-  }
-}
+};
